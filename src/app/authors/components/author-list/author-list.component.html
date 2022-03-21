@@ -1,0 +1,32 @@
+<div *ngIf="!isLoading; else loading">
+  <mat-card *ngFor="let author of authors" class="author-card">
+    <div class="author-card__content">
+      <h3>{{ author | authorName }}</h3>
+      <mat-card-subtitle>{{ author.birthDate | date }}</mat-card-subtitle>
+    </div>
+
+    <div>
+      <button
+        mat-icon-button
+        color="primary"
+        title="Edit"
+        (click)="editAuthor.emit(author)"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        color="warn"
+        title="Delete"
+        (click)="deleteAuthor.emit(author)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>
+
+<ng-template #loading>
+  <mat-spinner class="author-list-spinner"></mat-spinner>
+</ng-template>

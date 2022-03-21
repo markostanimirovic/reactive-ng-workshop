@@ -1,20 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  catchError,
-  concatMap,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  of,
-  startWith,
-  Subject,
-  switchMap,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { concatMap, filter, Subject, takeUntil } from 'rxjs';
 import { AuthorsService } from '@authors/services/authors.service';
 import { Author } from '@authors/models/author';
 import { ConfirmDialogService } from '@shared/confirm-dialog/confirm-dialog.service';
@@ -27,7 +14,7 @@ import { AlertService } from '@shared/alert/alert.service';
 })
 export class AuthorsComponent implements OnInit, OnDestroy {
   readonly destroy$ = new Subject<void>();
-  readonly queryControl = new FormControl('');
+  query = '';
   authors: Author[] = [];
   isLoading = false;
 
@@ -39,40 +26,16 @@ export class AuthorsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.queryControl.valueChanges
-      .pipe(
-        startWith(''),
-        debounceTime(300),
-        distinctUntilChanged(),
-        tap(() => (this.isLoading = true)),
-        switchMap((query) =>
-          this.authorsService.get(query).pipe(
-            catchError((err: HttpErrorResponse) => {
-              this.alertService.error(err.message);
-              return of([] as Author[]);
-            })
-          )
-        ),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((authors) => {
-        this.authors = authors;
-        this.isLoading = false;
-      });
+    this.loadAuthors();
+  }
+
+  onQueryChange(query: string): void {
+    this.query = query;
+    this.loadAuthors();
   }
 
   onRefreshAuthors(): void {
-    this.isLoading = true;
-    this.authorsService.get(this.queryControl.value).subscribe({
-      next: (authors) => {
-        this.isLoading = false;
-        this.authors = authors;
-      },
-      error: (err: HttpErrorResponse) => {
-        this.isLoading = false;
-        this.alertService.error(err.message);
-      },
-    });
+    this.loadAuthors();
   }
 
   onEditAuthor(author: Author): void {
@@ -102,5 +65,22 @@ export class AuthorsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next();
+  }
+
+  private loadAuthors(): void {
+    this.isLoading = true;
+    this.authorsService
+      .get(this.query)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (authors) => {
+          this.isLoading = false;
+          this.authors = authors;
+        },
+        error: (err: HttpErrorResponse) => {
+          this.isLoading = false;
+          this.alertService.error(err.message);
+        },
+      });
   }
 }

@@ -1,0 +1,25 @@
+<div class="authors-header">
+  <h1>
+    Authors <span *ngIf="!isLoading">({{ authorsLength }})</span>
+  </h1>
+
+  <div class="authors-header__actions">
+    <button
+      mat-icon-button
+      color="primary"
+      title="Refresh"
+      (click)="refreshAuthors.emit()"
+    >
+      <mat-icon>refresh</mat-icon>
+    </button>
+
+    <a
+      mat-icon-button
+      color="primary"
+      title="Create"
+      routerLink="/authors/create"
+    >
+      <mat-icon>add</mat-icon>
+    </a>
+  </div>
+</div>
