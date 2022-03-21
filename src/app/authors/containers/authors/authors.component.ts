@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
+  catchError,
   concatMap,
   debounceTime,
   distinctUntilChanged,
   filter,
-  map,
+  of,
   startWith,
+  Subject,
+  switchMap,
+  takeUntil,
+  tap,
 } from 'rxjs';
 import { AuthorsService } from '@authors/services/authors.service';
 import { Author } from '@authors/models/author';
@@ -20,7 +25,8 @@ import { AlertService } from '@shared/alert/alert.service';
   templateUrl: './authors.component.html',
   styleUrls: ['./authors.component.scss'],
 })
-export class AuthorsComponent implements OnInit {
+export class AuthorsComponent implements OnInit, OnDestroy {
+  readonly destroy$ = new Subject<void>();
   readonly queryControl = new FormControl('');
   authors: Author[] = [];
   isLoading = false;
@@ -38,12 +44,20 @@ export class AuthorsComponent implements OnInit {
         startWith(''),
         debounceTime(300),
         distinctUntilChanged(),
-        map((query) => this.authorsService.get(query))
+        tap(() => (this.isLoading = true)),
+        switchMap((query) =>
+          this.authorsService.get(query).pipe(
+            catchError((err: HttpErrorResponse) => {
+              this.alertService.error(err.message);
+              return of([] as Author[]);
+            })
+          )
+        ),
+        takeUntil(this.destroy$)
       )
-      .subscribe((authors$) => {
-        authors$.subscribe((authors) => {
-          this.authors = authors;
-        });
+      .subscribe((authors) => {
+        this.authors = authors;
+        this.isLoading = false;
       });
   }
 
@@ -84,5 +98,9 @@ export class AuthorsComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => this.alertService.error(err.message),
       });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
   }
 }
