@@ -1,0 +1,70 @@
+<div class="authors-container">
+  <div class="authors-header">
+    <h1>
+      Authors <span *ngIf="!isLoading">({{ authors.length }})</span>
+    </h1>
+
+    <div class="authors-header__actions">
+      <button
+        mat-icon-button
+        color="primary"
+        title="Refresh"
+        (click)="onRefreshAuthors()"
+      >
+        <mat-icon>refresh</mat-icon>
+      </button>
+
+      <a
+        mat-icon-button
+        color="primary"
+        title="Create"
+        routerLink="/authors/create"
+      >
+        <mat-icon>add</mat-icon>
+      </a>
+    </div>
+  </div>
+
+  <mat-form-field class="authors-search-field">
+    <mat-label>Search Authors</mat-label>
+    <input
+      matInput
+      type="text"
+      autocomplete="off"
+      [formControl]="queryControl"
+    />
+  </mat-form-field>
+
+  <div *ngIf="!isLoading; else loading">
+    <mat-card *ngFor="let author of authors" class="author-card">
+      <div class="author-card__content">
+        <h3>{{ author | authorName }}</h3>
+        <mat-card-subtitle>{{ author.birthDate | date }}</mat-card-subtitle>
+      </div>
+
+      <div>
+        <button
+          mat-icon-button
+          color="primary"
+          title="Edit"
+          (click)="onEditAuthor(author)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          color="warn"
+          title="Delete"
+          (click)="onDeleteAuthor(author)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-card>
+  </div>
+
+  <ng-template #loading>
+    <mat-spinner class="authors-spinner"></mat-spinner>
+  </ng-template>
+</div>

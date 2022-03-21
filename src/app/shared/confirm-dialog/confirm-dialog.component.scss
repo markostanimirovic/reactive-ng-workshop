@@ -1,0 +1,14 @@
+.confirm-dialog-container {
+  max-width: 30rem;
+}
+
+.confirm-dialog-message {
+  margin-bottom: 2rem;
+}
+
+.confirm-dialog-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}

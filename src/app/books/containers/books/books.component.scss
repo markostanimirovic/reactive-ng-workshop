@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+
+.books-container {
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.books-title {
+  text-align: center;
+}
+
+.books-search-box {
+  display: block;
+  margin: 0 auto;
+  max-width: 30rem;
+}
+
+.books-table-container {
+  @include mat.elevation(3);
+  margin: 0 auto;
+  max-width: 60rem;
+}

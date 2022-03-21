@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+
+.home-container {
+  margin: 2rem;
+  text-align: center;
+}
+
+.home-tiles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5rem;
+  margin-top: 5rem;
+
+  > mat-card {
+    @include mat.elevation(3);
+    cursor: pointer;
+    padding: 3rem;
+    min-width: 10rem;
+  }
+}

@@ -1,0 +1,36 @@
+<form [formGroup]="authorForm">
+  <mat-form-field class="author-form-field" appearance="outline">
+    <mat-label>First Name</mat-label>
+    <input
+      matInput
+      type="text"
+      autocomplete="off"
+      formControlName="firstName"
+    />
+  </mat-form-field>
+
+  <mat-form-field class="author-form-field" appearance="outline">
+    <mat-label>Last Name</mat-label>
+    <input matInput type="text" autocomplete="off" formControlName="lastName" />
+  </mat-form-field>
+
+  <mat-form-field class="author-form-field" appearance="outline">
+    <mat-label>Birth Date</mat-label>
+    <input
+      matInput
+      autocomplete="off"
+      formControlName="birthDate"
+      [matDatepicker]="picker"
+      [max]="authorForm.today"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <div class="author-form-actions">
+    <button mat-raised-button color="primary" (click)="onSaveAuthor()">
+      Save
+    </button>
+    <a mat-button color="primary" routerLink="/authors">Back</a>
+  </div>
+</form>

@@ -1,0 +1,13 @@
+<div *ngIf="vm$ | async as vm" class="author-details-container">
+  <h1 class="author-details-title">
+    {{ vm.author ? 'Update' : 'Create' }} Author
+  </h1>
+
+  <mat-card class="mat-elevation-z3">
+    <app-author-form
+      [author]="vm.author"
+      (create)="onCreate($event)"
+      (update)="onUpdate($event)"
+    ></app-author-form>
+  </mat-card>
+</div>

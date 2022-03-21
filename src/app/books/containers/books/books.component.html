@@ -1,0 +1,21 @@
+<div class="books-container">
+  <h1 class="books-title">Books</h1>
+
+  <app-search-box
+    class="books-search-box"
+    label="Search Books"
+    [query]="query"
+    (queryChange)="onQueryChange($event)"
+  ></app-search-box>
+
+  <div class="books-table-container">
+    <app-books-table [books]="books" [isLoading]="isLoading"></app-books-table>
+    <app-pagination
+      [currentPage]="currentPage"
+      [pageSize]="pageSize"
+      [totalCount]="totalCount"
+      (currentPageChange)="onCurrentPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+    ></app-pagination>
+  </div>
+</div>

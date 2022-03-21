@@ -1,0 +1,241 @@
+{
+  "authors": [
+    {
+      "id": 1,
+      "firstName": "Marie",
+      "lastName": "Clements",
+      "birthDate": "2000-1-1"
+    },
+    {
+      "id": 2,
+      "firstName": "Leslie",
+      "lastName": "Valenzuela",
+      "birthDate": "1970-09-20"
+    },
+    {
+      "id": 3,
+      "firstName": "Misael",
+      "lastName": "Holloway",
+      "birthDate": "1995-03-10"
+    },
+    {
+      "id": 4,
+      "firstName": "Kendrick",
+      "lastName": "Andrews",
+      "birthDate": "1925-04-12"
+    },
+    {
+      "id": 5,
+      "firstName": "Uriel",
+      "lastName": "Perez",
+      "birthDate": "1955-11-19"
+    },
+    {
+      "id": 6,
+      "firstName": "Victoria",
+      "lastName": "Mccoy",
+      "birthDate": "1911-02-23"
+    },
+    {
+      "id": 7,
+      "firstName": "Jaliyah",
+      "lastName": "Cardenas",
+      "birthDate": "1991-12-29"
+    },
+    {
+      "id": 8,
+      "firstName": "Hana",
+      "lastName": "Blair",
+      "birthDate": "1949-01-29"
+    },
+    {
+      "id": 9,
+      "firstName": "Aileen",
+      "lastName": "Waters",
+      "birthDate": "1979-06-12"
+    },
+    {
+      "id": 10,
+      "firstName": "Eliana",
+      "lastName": "Hall",
+      "birthDate": "1967-09-14"
+    }
+  ],
+  "books": [
+    {
+      "id": 1,
+      "title": "Origin Of The Sea",
+      "authorId": 1,
+      "genre": "Fantasy",
+      "publishedDate": "2012-03-31"
+    },
+    {
+      "id": 2,
+      "title": "Creator Of The Orbit",
+      "authorId": 4,
+      "genre": "Romance",
+      "publishedDate": "2020-12-31"
+    },
+    {
+      "id": 3,
+      "title": "Aliens Of Eternity",
+      "authorId": 10,
+      "genre": "Thriller",
+      "publishedDate": "2004-04-04"
+    },
+    {
+      "id": 4,
+      "title": "Droids Of The Fallen",
+      "authorId": 10,
+      "genre": "Thriller",
+      "publishedDate": "2009-03-09"
+    },
+    {
+      "id": 5,
+      "title": "Volunteers And Foreigners",
+      "authorId": 9,
+      "genre": "Thriller",
+      "publishedDate": "2010-02-22"
+    },
+    {
+      "id": 6,
+      "title": "Martians And Assassins",
+      "authorId": 8,
+      "genre": "Romance",
+      "publishedDate": "2014-10-01"
+    },
+    {
+      "id": 7,
+      "title": "Victory Of Honor",
+      "authorId": 7,
+      "genre": "Romance",
+      "publishedDate": "2021-11-21"
+    },
+    {
+      "id": 8,
+      "title": "Signs Of New Earth",
+      "authorId": 7,
+      "genre": "Thriller",
+      "publishedDate": "2006-05-19"
+    },
+    {
+      "id": 9,
+      "title": "Celebrating The Stars",
+      "authorId": 10,
+      "genre": "Thriller",
+      "publishedDate": "2016-06-14"
+    },
+    {
+      "id": 10,
+      "title": "Pilot Of The Fallen",
+      "authorId": 3,
+      "genre": "Fantasy",
+      "publishedDate": "2019-10-23"
+    },
+    {
+      "id": 11,
+      "title": "Man Of War",
+      "authorId": 2,
+      "genre": "Fantasy",
+      "publishedDate": "2017-02-24"
+    },
+    {
+      "id": 12,
+      "title": "Invaders Of The Future",
+      "authorId": 5,
+      "genre": "Fantasy",
+      "publishedDate": "2002-09-09"
+    },
+    {
+      "id": 13,
+      "title": "Hunters In The News",
+      "authorId": 6,
+      "genre": "Thriller",
+      "publishedDate": "2020-12-27"
+    },
+    {
+      "id": 14,
+      "title": "Guests And Women",
+      "authorId": 10,
+      "genre": "Fantasy",
+      "publishedDate": "2003-03-21"
+    },
+    {
+      "id": 15,
+      "title": "Men And Captains",
+      "authorId": 10,
+      "genre": "Romance",
+      "publishedDate": "2021-10-06"
+    },
+    {
+      "id": 16,
+      "title": "Obliteration Of Moondust",
+      "authorId": 3,
+      "genre": "Fantasy",
+      "publishedDate": "2011-01-09"
+    },
+    {
+      "id": 17,
+      "title": "Future Of Our Legacy",
+      "authorId": 6,
+      "genre": "Romance",
+      "publishedDate": "2014-05-17"
+    },
+    {
+      "id": 18,
+      "title": "Equality In Aliens",
+      "authorId": 4,
+      "genre": "Fantasy",
+      "publishedDate": "2010-10-12"
+    },
+    {
+      "id": 19,
+      "title": "Carvings On My Ship",
+      "authorId": 4,
+      "genre": "Fantasy",
+      "publishedDate": "2009-07-11"
+    },
+    {
+      "id": 20,
+      "title": "Child Of Time",
+      "authorId": 4,
+      "genre": "Romance",
+      "publishedDate": "2017-09-15"
+    },
+    {
+      "id": 21,
+      "title": "Hope Without Hate",
+      "authorId": 1,
+      "genre": "Romance",
+      "publishedDate": "2014-04-14"
+    },
+    {
+      "id": 22,
+      "title": "Druid Of The Ancients",
+      "authorId": 7,
+      "genre": "Thriller",
+      "publishedDate": "2021-11-22"
+    },
+    {
+      "id": 23,
+      "title": "Losing The East",
+      "authorId": 1,
+      "genre": "Fantasy",
+      "publishedDate": "2017-11-07"
+    },
+    {
+      "id": 24,
+      "title": "Gnomes Of The Dagger",
+      "authorId": 3,
+      "genre": "Thriller",
+      "publishedDate": "2005-06-05"
+    },
+    {
+      "id": 25,
+      "title": "Armies And Turtles",
+      "authorId": 9,
+      "genre": "Fantasy",
+      "publishedDate": "2015-10-09"
+    }
+  ]
+}

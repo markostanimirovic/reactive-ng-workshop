@@ -1,0 +1,33 @@
+@use '@angular/material' as mat;
+
+.authors-container {
+  margin: 0 auto;
+  padding: 2rem 0;
+  max-width: 30rem;
+}
+
+.authors-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.authors-search-field {
+  width: 100%;
+}
+
+.authors-spinner {
+  margin: 2rem auto;
+}
+
+.author-card {
+  @include mat.elevation(3);
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  &__content > * {
+    margin: 0;
+  }
+}
