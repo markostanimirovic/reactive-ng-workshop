@@ -1,41 +1,34 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
-import { concatMap, filter, Subject, takeUntil } from 'rxjs';
-import { AuthorsService } from '@authors/services/authors.service';
+import { take } from 'rxjs';
 import { Author } from '@authors/models/author';
-import { ConfirmDialogService } from '@shared/confirm-dialog/confirm-dialog.service';
-import { AlertService } from '@shared/alert/alert.service';
+import { AuthorsStore } from './authors.store';
 
 @Component({
   selector: 'app-authors',
   templateUrl: './authors.component.html',
   styleUrls: ['./authors.component.scss'],
+  providers: [AuthorsStore],
 })
-export class AuthorsComponent implements OnInit, OnDestroy {
-  readonly destroy$ = new Subject<void>();
-  query = '';
-  authors: Author[] = [];
-  isLoading = false;
+export class AuthorsComponent implements OnInit {
+  readonly vm$ = this.authorsStore.vm$;
 
   constructor(
-    private readonly authorsService: AuthorsService,
-    private readonly confirmDialogService: ConfirmDialogService,
-    private readonly alertService: AlertService,
+    private readonly authorsStore: AuthorsStore,
     private readonly router: Router
   ) {}
 
   ngOnInit(): void {
-    this.loadAuthors();
+    this.authorsStore.init();
   }
 
   onQueryChange(query: string): void {
-    this.query = query;
-    this.loadAuthors();
+    this.authorsStore.patchState({ query });
   }
 
   onRefreshAuthors(): void {
-    this.loadAuthors();
+    const query$ = this.authorsStore.query$.pipe(take(1));
+    this.authorsStore.loadAuthors(query$);
   }
 
   onEditAuthor(author: Author): void {
@@ -43,44 +36,6 @@ export class AuthorsComponent implements OnInit, OnDestroy {
   }
 
   onDeleteAuthor(author: Author): void {
-    this.confirmDialogService
-      .open({
-        title: 'Confirm Deletion',
-        message: `Do you want to delete author ${author.firstName} ${author.lastName}?`,
-      })
-      .pipe(
-        filter(Boolean),
-        concatMap(() => this.authorsService.delete(author.id))
-      )
-      .subscribe({
-        next: (id) => {
-          this.alertService.success(
-            `Author ${author.firstName} ${author.lastName} is successfully deleted.`
-          );
-          this.authors = this.authors.filter((a) => a.id !== id);
-        },
-        error: (err: HttpErrorResponse) => this.alertService.error(err.message),
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-  }
-
-  private loadAuthors(): void {
-    this.isLoading = true;
-    this.authorsService
-      .get(this.query)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (authors) => {
-          this.isLoading = false;
-          this.authors = authors;
-        },
-        error: (err: HttpErrorResponse) => {
-          this.isLoading = false;
-          this.alertService.error(err.message);
-        },
-      });
+    this.authorsStore.openDeleteAuthorDialog(author);
   }
 }

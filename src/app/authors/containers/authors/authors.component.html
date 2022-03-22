@@ -1,19 +1,19 @@
-<div class="authors-container">
+<div *ngIf="vm$ | async as vm" class="authors-container">
   <app-authors-header
-    [authorsLength]="authors.length"
-    [isLoading]="isLoading"
+    [authorsLength]="vm.authors.length"
+    [isLoading]="vm.isLoading"
     (refreshAuthors)="onRefreshAuthors()"
   ></app-authors-header>
 
   <app-search-box
     label="Search Authors"
-    [query]="query"
+    [query]="vm.query"
     (queryChange)="onQueryChange($event)"
   ></app-search-box>
 
   <app-author-list
-    [authors]="authors"
-    [isLoading]="isLoading"
+    [authors]="vm.authors"
+    [isLoading]="vm.isLoading"
     (editAuthor)="onEditAuthor($event)"
     (deleteAuthor)="onDeleteAuthor($event)"
   ></app-author-list>
