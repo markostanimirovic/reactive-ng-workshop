@@ -1,19 +1,22 @@
-<div class="books-container">
+<div class="books-container" *ngIf="vm$ | async as vm">
   <h1 class="books-title">Books</h1>
 
   <app-search-box
     class="books-search-box"
     label="Search Books"
-    [query]="query"
+    [query]="vm.query"
     (queryChange)="onQueryChange($event)"
   ></app-search-box>
 
   <div class="books-table-container">
-    <app-books-table [books]="books" [isLoading]="isLoading"></app-books-table>
+    <app-books-table
+      [books]="vm.books"
+      [isLoading]="vm.isLoading"
+    ></app-books-table>
     <app-pagination
-      [currentPage]="currentPage"
-      [pageSize]="pageSize"
-      [totalCount]="totalCount"
+      [currentPage]="vm.currentPage"
+      [pageSize]="vm.pageSize"
+      [totalCount]="vm.totalCount"
       (currentPageChange)="onCurrentPageChange($event)"
       (pageSizeChange)="onPageSizeChange($event)"
     ></app-pagination>
