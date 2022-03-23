@@ -1,20 +1,27 @@
-<div *ngIf="vm$ | async as vm" class="authors-container">
-  <app-authors-header
-    [authorsLength]="vm.authors.length"
-    [isLoading]="vm.isLoading"
-    (refreshAuthors)="onRefreshAuthors()"
-  ></app-authors-header>
+<ng-container *ngIf="vm$ | async as vm">
+  <mat-progress-bar
+    *ngIf="vm.isLoading"
+    class="authors-progress-bar"
+    mode="indeterminate"
+  ></mat-progress-bar>
 
-  <app-search-box
-    label="Search Authors"
-    [query]="vm.query"
-    (queryChange)="onQueryChange($event)"
-  ></app-search-box>
+  <div class="authors-container">
+    <app-authors-header
+      [authorsLength]="vm.authors.length"
+      [isLoading]="vm.isLoading"
+      (refreshAuthors)="onRefreshAuthors()"
+    ></app-authors-header>
 
-  <app-author-list
-    [authors]="vm.authors"
-    [isLoading]="vm.isLoading"
-    (editAuthor)="onEditAuthor($event)"
-    (deleteAuthor)="onDeleteAuthor($event)"
-  ></app-author-list>
-</div>
+    <app-search-box
+      label="Search Authors"
+      [query]="vm.query"
+      (queryChange)="onQueryChange($event)"
+    ></app-search-box>
+
+    <app-author-list
+      [authors]="vm.authors"
+      (editAuthor)="onEditAuthor($event)"
+      (deleteAuthor)="onDeleteAuthor($event)"
+    ></app-author-list>
+  </div>
+</ng-container>

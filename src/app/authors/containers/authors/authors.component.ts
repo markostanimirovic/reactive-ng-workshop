@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { Author } from '@authors/models/author';
@@ -9,6 +9,7 @@ import { AuthorsStore } from './authors.store';
   templateUrl: './authors.component.html',
   styleUrls: ['./authors.component.scss'],
   providers: [AuthorsStore],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthorsComponent implements OnInit {
   readonly vm$ = this.authorsStore.vm$;

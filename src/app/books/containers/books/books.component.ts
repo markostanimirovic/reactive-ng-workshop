@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BooksStore } from './books.store';
 
 @Component({
@@ -6,6 +6,7 @@ import { BooksStore } from './books.store';
   templateUrl: './books.component.html',
   styleUrls: ['./books.component.scss'],
   providers: [BooksStore],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BooksComponent implements OnInit {
   readonly vm$ = this.booksStore.vm$;
