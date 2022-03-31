@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from '@shared/confirm-dialog/confirm-dialog.module';
 import { AlertModule } from '@shared/alert/alert.module';
 import { SearchBoxModule } from '@shared/search-box/search-box.module';
+import { EntityModule } from '@shared/entity/entity.module';
 import { AuthorsRoutingModule } from './authors-routing.module';
 import { AuthorsMaterialModule } from './authors-material.module';
 import { AuthorsSharedUiModule } from './authors-shared-ui.module';
@@ -30,6 +31,7 @@ import { AuthorListComponent } from './components/author-list/author-list.compon
     ConfirmDialogModule,
     AlertModule,
     SearchBoxModule,
+    EntityModule,
   ],
 })
 export class AuthorsModule {}

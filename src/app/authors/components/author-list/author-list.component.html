@@ -1,7 +1,4 @@
-<mat-card
-  *ngFor="let author of authors; trackBy: trackById"
-  class="author-card"
->
+<mat-card *ngFor="let author of authors; trackById: true" class="author-card">
   <div class="author-card__content">
     <h3>{{ author | authorName }}</h3>
     <mat-card-subtitle>{{ author.birthDate | date }}</mat-card-subtitle>
