@@ -1,35 +1,31 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { take } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { Author } from '@authors/models/author';
-import { AuthorsStore } from './authors.store';
+import { authorsPageActions } from '@authors/actions';
+import { selectAuthorsPageViewModel } from './authors-page.selectors';
 
 @Component({
   selector: 'app-authors',
   templateUrl: './authors.component.html',
   styleUrls: ['./authors.component.scss'],
-  providers: [AuthorsStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthorsComponent implements OnInit {
-  readonly vm$ = this.authorsStore.vm$;
+  readonly vm$ = this.store.select(selectAuthorsPageViewModel);
 
-  constructor(
-    private readonly authorsStore: AuthorsStore,
-    private readonly router: Router
-  ) {}
+  constructor(private readonly store: Store, private readonly router: Router) {}
 
   ngOnInit(): void {
-    this.authorsStore.init();
+    this.store.dispatch(authorsPageActions.opened());
   }
 
   onQueryChange(query: string): void {
-    this.authorsStore.patchState({ query });
+    this.store.dispatch(authorsPageActions.queryChanged({ query }));
   }
 
   onRefreshAuthors(): void {
-    const query$ = this.authorsStore.query$.pipe(take(1));
-    this.authorsStore.loadAuthors(query$);
+    this.store.dispatch(authorsPageActions.refreshClicked());
   }
 
   onEditAuthor(author: Author): void {
@@ -37,6 +33,6 @@ export class AuthorsComponent implements OnInit {
   }
 
   onDeleteAuthor(author: Author): void {
-    this.authorsStore.openDeleteAuthorDialog(author);
+    this.store.dispatch(authorsPageActions.deleteClicked({ author }));
   }
 }

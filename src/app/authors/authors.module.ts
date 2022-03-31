@@ -8,6 +8,7 @@ import { EntityModule } from '@shared/entity/entity.module';
 import { AuthorsRoutingModule } from './authors-routing.module';
 import { AuthorsMaterialModule } from './authors-material.module';
 import { AuthorsSharedUiModule } from './authors-shared-ui.module';
+import { AuthorsStateModule } from './authors-state.module';
 import { AuthorDetailsComponent } from './containers/author-details/author-details.component';
 import { AuthorsComponent } from './containers/authors/authors.component';
 import { AuthorFormComponent } from './components/author-form/author-form.component';
@@ -28,6 +29,7 @@ import { AuthorListComponent } from './components/author-list/author-list.compon
     AuthorsRoutingModule,
     AuthorsMaterialModule,
     AuthorsSharedUiModule,
+    AuthorsStateModule,
     ConfirmDialogModule,
     AlertModule,
     SearchBoxModule,
