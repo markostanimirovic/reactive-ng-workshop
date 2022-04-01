@@ -1,4 +1,5 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { Author } from '@authors/models/author';
 import {
   authorsPageActions,
@@ -6,17 +7,17 @@ import {
   authorsDialogActions,
 } from '@authors/actions';
 
-interface State {
+interface State extends EntityState<Author> {
   query: string;
-  authors: Author[];
   isLoading: boolean;
 }
 
-const initialState: State = {
+const adapter = createEntityAdapter<Author>();
+
+const initialState: State = adapter.getInitialState({
   query: '',
-  authors: [],
   isLoading: false,
-};
+});
 
 export const reducer = createReducer(
   initialState,
@@ -34,37 +35,34 @@ export const reducer = createReducer(
     query,
     isLoading: true,
   })),
-  on(authorsApiActions.authorsLoadedSuccess, (state, { authors }) => ({
-    ...state,
-    authors,
-    isLoading: false,
-  })),
-  on(authorsApiActions.authorsLoadedFailure, (state) => ({
-    ...state,
-    authors: [],
-    isLoading: false,
-  })),
-  on(authorsApiActions.authorLoadedSuccess, (state, { author }) => ({
-    ...state,
-    authors: Array.from(new Set([...state.authors, author])),
-  })),
-  on(authorsApiActions.authorDeletedSuccess, (state, { author }) => ({
-    ...state,
-    authors: state.authors.filter((a) => a.id !== author.id),
-    isLoading: false,
-  })),
+  on(authorsApiActions.authorsLoadedSuccess, (state, { authors }) =>
+    adapter.setAll(authors, {
+      ...state,
+      isLoading: false,
+    })
+  ),
+  on(authorsApiActions.authorsLoadedFailure, (state) =>
+    adapter.removeAll({ ...state, isLoading: false })
+  ),
+  on(
+    authorsApiActions.authorLoadedSuccess,
+    authorsApiActions.authorCreatedSuccess,
+    authorsApiActions.authorUpdatedSuccess,
+    (state, { author }) => adapter.setOne(author, state)
+  ),
+  on(authorsApiActions.authorDeletedSuccess, (state, { author }) =>
+    adapter.removeOne(author.id, {
+      ...state,
+      isLoading: false,
+    })
+  ),
   on(authorsApiActions.authorDeletedFailure, (state) => ({
     ...state,
     isLoading: false,
-  })),
-  on(authorsApiActions.authorCreatedSuccess, (state, { author }) => ({
-    ...state,
-    authors: [...state.authors, author],
-  })),
-  on(authorsApiActions.authorUpdatedSuccess, (state, { author }) => ({
-    ...state,
-    authors: state.authors.map((a) => (a.id === author.id ? author : a)),
   }))
 );
 
-export const authorsFeature = createFeature({ name: 'authors', reducer });
+const feature = createFeature({ name: 'authors', reducer });
+const { selectAll } = adapter.getSelectors(feature.selectAuthorsState);
+
+export const authorsFeature = { ...feature, selectAll };

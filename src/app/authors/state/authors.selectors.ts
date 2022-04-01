@@ -3,12 +3,11 @@ import { authorsFeature } from './authors.reducer';
 
 export const {
   selectAuthorsState,
-  selectAuthors,
+  selectAll,
+  selectEntities,
   selectIsLoading,
   selectQuery,
 } = authorsFeature;
 
 export const selectAuthorById = (authorId: number) =>
-  createSelector(selectAuthors, (authors) =>
-    authors.find(({ id }) => id === authorId)
-  );
+  createSelector(selectEntities, (authors) => authors[authorId]);
