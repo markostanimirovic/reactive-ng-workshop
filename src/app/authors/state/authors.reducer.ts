@@ -56,6 +56,14 @@ export const reducer = createReducer(
   on(authorsApiActions.authorDeletedFailure, (state) => ({
     ...state,
     isLoading: false,
+  })),
+  on(authorsApiActions.authorCreatedSuccess, (state, { author }) => ({
+    ...state,
+    authors: [...state.authors, author],
+  })),
+  on(authorsApiActions.authorUpdatedSuccess, (state, { author }) => ({
+    ...state,
+    authors: state.authors.map((a) => (a.id === author.id ? author : a)),
   }))
 );
 

@@ -27,3 +27,21 @@ export const authorDeletedFailure = createAction(
   '[Authors API] Failed to Delete Author',
   props<{ author: Author; message: string }>()
 );
+
+export const authorCreatedSuccess = createAction(
+  '[Authors API] Author Created Successfully',
+  props<{ author: Author }>()
+);
+export const authorCreatedFailure = createAction(
+  '[Authors API] Failed to Create Author',
+  props<{ message: string }>()
+);
+
+export const authorUpdatedSuccess = createAction(
+  '[Authors API] Author Updated Successfully',
+  props<{ author: Author }>()
+);
+export const authorUpdatedFailure = createAction(
+  '[Authors API] Failed to Update Author',
+  props<{ message: string }>()
+);

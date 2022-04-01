@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthorsComponent } from './containers/authors/authors.component';
 import { AuthorDetailsComponent } from './containers/author-details/author-details.component';
-import { AuthorResolver } from './resolvers/author.resolver';
+import { AuthorExistsGuard } from './guards/author-exists.guard';
 
 const routes: Routes = [
   { path: '', component: AuthorsComponent, data: { title: 'Authors' } },
@@ -15,7 +15,7 @@ const routes: Routes = [
     path: ':id',
     component: AuthorDetailsComponent,
     data: { title: 'Author Details' },
-    resolve: { author: AuthorResolver },
+    canActivate: [AuthorExistsGuard],
   },
 ];
 

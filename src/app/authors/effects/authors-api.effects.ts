@@ -16,6 +16,7 @@ import { authorsSelectors } from '@authors/state';
 import {
   authorsApiActions,
   authorsPageActions,
+  authorDetailsPageActions,
   authorsDialogActions,
   authorExistsGuardActions,
 } from '@authors/actions';
@@ -77,6 +78,34 @@ export class AuthorsApiEffects {
                 author,
               })
             )
+          )
+        );
+      })
+    );
+  });
+
+  readonly createAuthor$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(authorDetailsPageActions.createSubmitted),
+      concatMap(({ author }) => {
+        return this.authorsService.create(author).pipe(
+          map((author) => authorsApiActions.authorCreatedSuccess({ author })),
+          catchError((err: HttpErrorResponse) =>
+            of(authorsApiActions.authorCreatedFailure({ message: err.message }))
+          )
+        );
+      })
+    );
+  });
+
+  readonly updateAuthor$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(authorDetailsPageActions.updateSubmitted),
+      concatMap(({ author }) => {
+        return this.authorsService.update(author).pipe(
+          map((author) => authorsApiActions.authorUpdatedSuccess({ author })),
+          catchError((err: HttpErrorResponse) =>
+            of(authorsApiActions.authorUpdatedFailure({ message: err.message }))
           )
         );
       })

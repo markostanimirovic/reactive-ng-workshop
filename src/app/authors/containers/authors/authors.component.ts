@@ -29,7 +29,7 @@ export class AuthorsComponent implements OnInit {
   }
 
   onEditAuthor(author: Author): void {
-    this.router.navigate(['/authors', author.id], { state: { author } });
+    this.router.navigate(['/authors', author.id]);
   }
 
   onDeleteAuthor(author: Author): void {

@@ -12,7 +12,9 @@ export class AuthorsAlertEffects {
         ofType(
           authorsApiActions.authorsLoadedFailure,
           authorsApiActions.authorLoadedFailure,
-          authorsApiActions.authorDeletedFailure
+          authorsApiActions.authorDeletedFailure,
+          authorsApiActions.authorCreatedFailure,
+          authorsApiActions.authorUpdatedFailure
         ),
         tap(({ message }) => this.alertService.error(message))
       );
@@ -27,6 +29,23 @@ export class AuthorsAlertEffects {
         tap(({ author }) =>
           this.alertService.success(
             `Author ${author.firstName} ${author.lastName} is successfully deleted.`
+          )
+        )
+      );
+    },
+    { dispatch: false }
+  );
+
+  readonly showSaveSuccessAlert$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(
+          authorsApiActions.authorCreatedSuccess,
+          authorsApiActions.authorUpdatedSuccess
+        ),
+        tap(({ author }) =>
+          this.alertService.success(
+            `Author ${author.firstName} ${author.lastName} is successfully saved.`
           )
         )
       );

@@ -4,6 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthorsAlertEffects } from '@authors/effects/authors-alert.effects';
 import { AuthorsApiEffects } from '@authors/effects/authors-api.effects';
 import { AuthorsDialogEffects } from '@authors/effects/authors-dialog.effects';
+import { AuthorsNavigationEffects } from '@authors/effects/authors-navigation.effects';
 import { fromAuthors } from '@authors/state';
 
 @NgModule({
@@ -13,6 +14,7 @@ import { fromAuthors } from '@authors/state';
       AuthorsAlertEffects,
       AuthorsApiEffects,
       AuthorsDialogEffects,
+      AuthorsNavigationEffects,
     ]),
   ],
 })
