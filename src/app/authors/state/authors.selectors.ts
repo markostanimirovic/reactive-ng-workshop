@@ -1,24 +1,12 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { fromAuthors } from './index';
+import { createSelector } from '@ngrx/store';
+import { authorsFeature } from './authors.reducer';
 
-export const selectAuthorsState = createFeatureSelector<fromAuthors.State>(
-  fromAuthors.featureName
-);
-
-export const selectAuthors = createSelector(
+export const {
   selectAuthorsState,
-  (state) => state.authors
-);
-
-export const selectQuery = createSelector(
-  selectAuthorsState,
-  (state) => state.query
-);
-
-export const selectIsLoading = createSelector(
-  selectAuthorsState,
-  (state) => state.isLoading
-);
+  selectAuthors,
+  selectIsLoading,
+  selectQuery,
+} = authorsFeature;
 
 export const selectAuthorById = (authorId: number) =>
   createSelector(selectAuthors, (authors) =>

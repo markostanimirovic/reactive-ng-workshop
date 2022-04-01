@@ -1,4 +1,4 @@
-import { createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, on } from '@ngrx/store';
 import { Author } from '@authors/models/author';
 import {
   authorsPageActions,
@@ -6,7 +6,7 @@ import {
   authorsDialogActions,
 } from '@authors/actions';
 
-export interface State {
+interface State {
   query: string;
   authors: Author[];
   isLoading: boolean;
@@ -67,4 +67,4 @@ export const reducer = createReducer(
   }))
 );
 
-export const featureName = 'authors';
+export const authorsFeature = createFeature({ name: 'authors', reducer });

@@ -1,2 +1,2 @@
-export * as fromAuthors from './authors.reducer';
+export { authorsFeature } from './authors.reducer';
 export * as authorsSelectors from './authors.selectors';
